@@ -5,5 +5,8 @@ import "learn/learn"
 func main() {
 	// learn.Format()
 	// learn.Array()
-	learn.IfSwitch()
+	// learn.IfSwitch()
+	// learn.Function()
+	learn.Struct()
+	// learn.InterFace()
 }
