@@ -7,6 +7,7 @@ func main() {
 	// learn.Array()
 	// learn.IfSwitch()
 	// learn.Function()
-	learn.Struct()
+	// learn.Struct()
 	// learn.InterFace()
+	learn.Receiver()
 }
