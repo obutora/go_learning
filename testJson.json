@@ -1,0 +1,8 @@
+{
+    "name": "value",
+    "int": 123,
+    "boolean": true,
+    "child": {
+        "structName": "name"
+    }
+}

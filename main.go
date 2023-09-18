@@ -9,5 +9,8 @@ func main() {
 	// learn.Function()
 	// learn.Struct()
 	// learn.InterFace()
-	learn.Receiver()
+	// learn.Receiver()
+	// learn.Method()
+	// learn.InitFunction()
+	learn.ReadJson()
 }
