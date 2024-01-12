@@ -5,7 +5,7 @@ WORKDIR /app
 
 COPY . .
 
-RUN go build -o main ./cmd/in_memory_gcs_storage_kvs.go
+RUN go build -o main ./cmd/main.go
 
 # Run
 FROM gcr.io/distroless/static-debian12
