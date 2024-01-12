@@ -4,9 +4,9 @@ on:
   workflow_dispatch:
 
 env:
-  SEARVICE_NAME: KVS-test
+  SEARVICE_NAME: kvs-test
   DOCKER_PATH: ./docker/Dockerfile
-  IMAGE: ${{ secrets.GCP_REGION }}-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/go-cloudrun-container/KVS-test:${{ github.sha }}
+  IMAGE: ${{ secrets.GCP_REGION }}-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/go-cloudrun-container/kvs-test:${{ github.sha }}
   GCP_SA_KEY: ${{ secrets.GCP_SA_KEY }}
 
 jobs:
