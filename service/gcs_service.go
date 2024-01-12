@@ -8,15 +8,14 @@ import (
 	"log"
 
 	"cloud.google.com/go/storage"
-	"google.golang.org/api/option"
 )
 
-func credentialsOption() option.ClientOption {
-	return option.WithCredentialsFile("kvs-test-account.json")
-}
+// func credentialsOption() option.ClientOption {
+// 	return option.WithCredentialsFile("kvs-test-account.json")
+// }
 
 func UploadToGcs(ctx context.Context, bucket, path string, data []byte) error {
-	client, err := storage.NewClient(ctx, credentialsOption())
+	client, err := storage.NewClient(ctx)
 	if err != nil {
 		fmt.Printf("[GCS upload] failed to create client: %v", err)
 		return err
@@ -46,7 +45,7 @@ func UploadToGcs(ctx context.Context, bucket, path string, data []byte) error {
 }
 
 func ReadFromGcs(ctx context.Context, bucket, path string) (map[string]interface{}, error) {
-	client, err := storage.NewClient(ctx, credentialsOption())
+	client, err := storage.NewClient(ctx)
 	if err != nil {
 		fmt.Printf("[GCS upload] failed to create client: %v", err)
 		return nil, err
