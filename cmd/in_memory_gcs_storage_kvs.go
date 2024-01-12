@@ -4,6 +4,7 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
+	"learn/service"
 	"log"
 	"net/http"
 	"os"
@@ -14,11 +15,10 @@ import (
 	"github.com/go-chi/chi"
 	"github.com/go-chi/chi/middleware"
 	"github.com/go-chi/render"
-	"github.com/minedia/orca-graphql-server/service"
 )
 
 const (
-	Bucket = "orca-cache"
+	Bucket = "kvs-test"
 	Path   = "cache.json"
 )
 
@@ -45,6 +45,9 @@ func main() {
 	r.Use(middleware.Logger)
 
 	r.Get("/read/{key}", func(w http.ResponseWriter, r *http.Request) {
+		// 計測開始
+		s := time.Now()
+
 		key := chi.URLParam(r, "key")
 
 		if m[key] != nil {
@@ -53,6 +56,8 @@ func main() {
 				"status": "success",
 				"value":  m[key],
 			})
+			// 経過時間を出力
+			fmt.Printf("process time: %s\n", time.Since(s))
 			return
 		}
 
@@ -61,6 +66,9 @@ func main() {
 			"status": "notFound",
 			"value":  "null",
 		})
+		// 経過時間を出力
+		fmt.Printf("process time: %s\n", time.Since(s))
+
 	})
 
 	// NOTE: POST bodyに{"key": "hoge", "value": "fuga"}　を入れて実行する

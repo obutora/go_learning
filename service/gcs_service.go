@@ -8,13 +8,17 @@ import (
 	"log"
 
 	"cloud.google.com/go/storage"
-	"github.com/minedia/orca-graphql-server/logger"
+	"google.golang.org/api/option"
 )
 
+func credentialsOption() option.ClientOption {
+	return option.WithCredentialsFile("kvs-test-account.json")
+}
+
 func UploadToGcs(ctx context.Context, bucket, path string, data []byte) error {
-	client, err := storage.NewClient(ctx)
+	client, err := storage.NewClient(ctx, credentialsOption())
 	if err != nil {
-		logger.Error("[GCS upload] failed to create client", err)
+		fmt.Printf("[GCS upload] failed to create client: %v", err)
 		return err
 	}
 
@@ -28,12 +32,12 @@ func UploadToGcs(ctx context.Context, bucket, path string, data []byte) error {
 	wc := obj.NewWriter(ctx)
 	_, err = wc.Write(data)
 	if err != nil {
-		logger.Error("[GCS upload] failed to write data", err)
+		fmt.Printf("[GCS upload] failed to write data: %v", err)
 		return err
 	}
 
 	if err := wc.Close(); err != nil {
-		logger.Error("[GCS upload] failed to close writer", err)
+		fmt.Printf("[GCS upload] failed to close writer: %v", err)
 		return err
 	}
 
@@ -42,9 +46,9 @@ func UploadToGcs(ctx context.Context, bucket, path string, data []byte) error {
 }
 
 func ReadFromGcs(ctx context.Context, bucket, path string) (map[string]interface{}, error) {
-	client, err := storage.NewClient(ctx)
+	client, err := storage.NewClient(ctx, credentialsOption())
 	if err != nil {
-		logger.Error("[GCS upload] failed to create client", err)
+		fmt.Printf("[GCS upload] failed to create client: %v", err)
 		return nil, err
 	}
 	// bucketオブジェクトの作成
