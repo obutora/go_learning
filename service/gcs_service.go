@@ -21,13 +21,9 @@ func UploadToGcs(ctx context.Context, bucket, path string, data []byte) error {
 		return err
 	}
 
-	// bucketオブジェクトの作成
 	b := client.Bucket(bucket)
-
-	// bucket内のオブジェクトの作成
 	obj := b.Object(path)
 
-	// file upload
 	wc := obj.NewWriter(ctx)
 	_, err = wc.Write(data)
 	if err != nil {
@@ -50,9 +46,7 @@ func ReadFromGcs(ctx context.Context, bucket, path string) (map[string]interface
 		fmt.Printf("[GCS upload] failed to create client: %v", err)
 		return nil, err
 	}
-	// bucketオブジェクトの作成
 	b := client.Bucket(bucket)
-	// bucket内のオブジェクトの作成
 	obj := b.Object(path)
 
 	reader, err := obj.NewReader(ctx)
